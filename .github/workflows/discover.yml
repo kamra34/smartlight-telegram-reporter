@@ -1,0 +1,54 @@
+name: discover
+on:
+  schedule:
+    - cron: '15 7 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: smartlight-telegram-reporter
+  cancel-in-progress: false
+
+jobs:
+  run-discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run discover
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GOOGLE_CUSTOM_SEARCH_API_KEY: ${{ secrets.GOOGLE_CUSTOM_SEARCH_API_KEY }}
+          GOOGLE_CUSTOM_SEARCH_CX: ${{ secrets.GOOGLE_CUSTOM_SEARCH_CX }}
+          TZ: Europe/Stockholm
+          NOTIFY_MIN: '3'
+          NOTIFY_MAX: '5'
+        run: |
+          python ads_tracker.py discover --top 3
+
+      - name: Commit state if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [[ -n "$(git status --porcelain ads_state.json)" ]]; then
+            git add ads_state.json
+            git commit -m "chore: update ads_state [skip ci]"
+            git push
+          else
+            echo "No changes to ads_state.json"
+          fi
