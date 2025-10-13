@@ -9,10 +9,10 @@
       "url": "https://www.indiegogo.com/projects/odin-3-the-ultimate-6-120hz-oled-gaming-handheld",
       "platform_id": "projects/odin-3-the-ultimate-6-120hz-oled-gaming-handheld",
       "views": null,
-      "backers": 2122,
+      "backers": 2123,
       "comments": 48,
       "goal": 50000.0,
-      "pledged": 8131513.0,
+      "pledged": 8134803.0,
       "published_at": null,
       "duration_s": null,
       "category": "Video Games",
@@ -23,7 +23,7 @@
       },
       "llm_score": 0.95,
       "score": 0.95,
-      "funding_ratio": 162.63026,
+      "funding_ratio": 162.69606,
       "last_enriched": "2025-10-13"
     },
     "kickstarter:projects/1063165583/m5-flashlight-4600lm-red-laser-ultimate-outdoor-lighting/rewards": {
@@ -191,10 +191,10 @@
       "url": "https://www.indiegogo.com/projects/airball-v2-easily-locate-your-golf-ball-more",
       "platform_id": "projects/airball-v2-easily-locate-your-golf-ball-more",
       "views": null,
-      "backers": 151,
+      "backers": 152,
       "comments": 0,
       "goal": 500.0,
-      "pledged": 10534.0,
+      "pledged": 10633.0,
       "published_at": null,
       "duration_s": null,
       "category": "Travel \\u0026 Outdoors",
@@ -205,7 +205,7 @@
       },
       "llm_score": 0.9,
       "score": 0.9,
-      "funding_ratio": 21.068,
+      "funding_ratio": 21.266,
       "last_enriched": "2025-10-13"
     },
     "indiegogo:projects/chain-reaction-bicycle-relief": {
@@ -363,13 +363,137 @@
       "score": 0.9,
       "funding_ratio": 0.0404,
       "last_enriched": "2025-10-13"
+    },
+    "kickstarter:projects/seanyoung/monsterpatch-a-cozy-monster-collecting-rpg": {
+      "title": "Monsterpatch: A Cozy Monster-Collecting RPG by Sean Young ...",
+      "platform": "kickstarter",
+      "url": "https://www.kickstarter.com/projects/seanyoung/monsterpatch-a-cozy-monster-collecting-rpg",
+      "platform_id": "seanyoung/monsterpatch-a-cozy-monster-collecting-rpg",
+      "views": null,
+      "backers": null,
+      "comments": null,
+      "goal": null,
+      "pledged": null,
+      "published_at": null,
+      "duration_s": null,
+      "category": null,
+      "status": null,
+      "campaign_dates": {
+        "launched": null,
+        "ended": null
+      },
+      "llm_score": null,
+      "score": 0.5,
+      "funding_ratio": null,
+      "sent": false,
+      "last_enriched": "2025-10-13",
+      "best_views": 0
+    },
+    "kickstarter:projects/darringtonpressgames/daggerheart-class-packs": {
+      "title": "Daggerheart Class Packs by Darrington Press — Kickstarter",
+      "platform": "kickstarter",
+      "url": "https://www.kickstarter.com/projects/darringtonpressgames/daggerheart-class-packs",
+      "platform_id": "darringtonpressgames/daggerheart-class-packs",
+      "views": null,
+      "backers": null,
+      "comments": null,
+      "goal": null,
+      "pledged": null,
+      "published_at": null,
+      "duration_s": null,
+      "category": null,
+      "status": null,
+      "campaign_dates": {
+        "launched": null,
+        "ended": null
+      },
+      "llm_score": null,
+      "score": 0.5,
+      "funding_ratio": null,
+      "sent": false,
+      "last_enriched": "2025-10-13",
+      "best_views": 0
+    },
+    "kickstarter:1063165583/m5-flashlight-4600lm-red-laser-ultimate-outdoor-lighting": {
+      "title": "M5 Flashlight: 5200LM Red Laser, Ultimate Outdoor Lighting by ...",
+      "platform": "kickstarter",
+      "url": "https://www.kickstarter.com/projects/1063165583/m5-flashlight-4600lm-red-laser-ultimate-outdoor-lighting",
+      "platform_id": "1063165583/m5-flashlight-4600lm-red-laser-ultimate-outdoor-lighting",
+      "ad_url": null,
+      "ad_platform": null,
+      "views": null,
+      "backers": null,
+      "comments": null,
+      "goal": null,
+      "pledged": null,
+      "published_at": null,
+      "duration_s": null,
+      "category": null,
+      "status": null,
+      "campaign_dates": {
+        "launched": null,
+        "ended": null
+      },
+      "llm_score": null,
+      "score": 0.5,
+      "funding_ratio": null,
+      "sent": false,
+      "last_enriched": "2025-10-13",
+      "best_views": 0
+    },
+    "kickstarter:lvhk/worlds-most-powerful-outdoor-light-andpower-bank-two-in-one": {
+      "title": "World's most powerful outdoor light &Power Bank Two-in-one by ...",
+      "platform": "kickstarter",
+      "url": "https://www.kickstarter.com/projects/lvhk/worlds-most-powerful-outdoor-light-andpower-bank-two-in-one",
+      "platform_id": "lvhk/worlds-most-powerful-outdoor-light-andpower-bank-two-in-one",
+      "ad_url": null,
+      "ad_platform": null,
+      "views": null,
+      "backers": null,
+      "comments": null,
+      "goal": null,
+      "pledged": null,
+      "published_at": null,
+      "duration_s": null,
+      "category": null,
+      "status": null,
+      "campaign_dates": {
+        "launched": null,
+        "ended": null
+      },
+      "llm_score": null,
+      "score": 0.5,
+      "funding_ratio": null,
+      "sent": false,
+      "last_enriched": "2025-10-13",
+      "best_views": 0
+    },
+    "kickstarter:seanyoung/monsterpatch-a-cozy-monster-collecting-rpg": {
+      "title": "Monsterpatch: A Cozy Monster-Collecting RPG by Sean Young ...",
+      "platform": "kickstarter",
+      "url": "https://www.kickstarter.com/projects/seanyoung/monsterpatch-a-cozy-monster-collecting-rpg",
+      "platform_id": "seanyoung/monsterpatch-a-cozy-monster-collecting-rpg",
+      "ad_url": null,
+      "ad_platform": null,
+      "views": null,
+      "backers": null,
+      "comments": null,
+      "goal": null,
+      "pledged": null,
+      "published_at": null,
+      "duration_s": null,
+      "category": null,
+      "status": null,
+      "campaign_dates": {
+        "launched": null,
+        "ended": null
+      },
+      "llm_score": null,
+      "score": 0.5,
+      "funding_ratio": null,
+      "sent": false,
+      "last_enriched": "2025-10-13",
+      "best_views": 0
     }
-  },
-  "daily": {
-    "2025-10-13": [
-      "indiegogo:projects/odin-3-the-ultimate-6-120hz-oled-gaming-handheld",
-      "indiegogo:projects/airball-v2-easily-locate-your-golf-ball-more",
-      "indiegogo:projects/chain-reaction-bicycle-relief"
-    ]
   }
 }

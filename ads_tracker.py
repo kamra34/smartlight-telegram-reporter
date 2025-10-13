@@ -51,6 +51,7 @@ class Config:
     use_llm: bool       = os.getenv("USE_LLM", "true").lower() == "true"
     notify_min: int  = int(os.getenv("NOTIFY_MIN", "3"))
     notify_max: int  = int(os.getenv("NOTIFY_MAX", "5"))
+    window_days: int = int(os.getenv("WINDOW_DAYS", "150"))
 
 CFG = Config()
 CLIENT = OpenAI(api_key=CFG.openai_api_key) if (CFG.use_llm and OpenAI and CFG.openai_api_key) else None
@@ -593,13 +594,15 @@ def resolve_embeds_to_views(item: Dict[str, Any]) -> Dict[str, Any]:
         except Exception:
             pass
     if best:
-        item["url"] = best["url"]
-        item["platform"] = best["platform"]
+        # keep campaign URL; store ad video separately
+        item["ad_url"] = best["url"]
+        item["ad_platform"] = best["platform"]
         item["views"] = best["views"]
         item["published_at"] = best.get("published_at")
         item["duration_s"] = best.get("duration_s")
         item["is_campaign_ad"] = True
     return item
+
 
 def enrich_minimal_results(items: List[Dict[str,Any]]) -> List[Dict[str,Any]]:
     enriched = []
@@ -643,6 +646,24 @@ def enrich_minimal_results(items: List[Dict[str,Any]]) -> List[Dict[str,Any]]:
 # =========================
 # Gate & scoring
 # =========================
+def _primary_date_for_window(it: Dict[str, Any]) -> Optional[str]:
+    return (it.get("published_at")
+            or ((it.get("campaign_dates") or {}).get("launched"))
+            or ((it.get("campaign_dates") or {}).get("ended")))
+
+def is_within_window(it: Dict[str, Any], days: int = CFG.window_days) -> bool:
+    ds = _primary_date_for_window(it)
+    if not ds:
+        # if unknown, keep it — Google CSE already used recent restrict,
+        # and we’ll still dedupe by key
+        return True
+    try:
+        d = datetime.fromisoformat(ds).date()
+    except Exception:
+        return True
+    today = datetime.now(timezone.utc).date()
+    return (today - d).days <= max(1, days)
+
 def hard_gate(item: Dict[str,Any]) -> bool:
     host = (item.get("platform") or "").lower()
     if host not in ("youtube","vimeo","kickstarter","indiegogo"): return False
@@ -771,9 +792,15 @@ def extract_native_id(url: str) -> Tuple[str,str]:
         return ("indiegogo", u.path.strip("/"))
     return ("web", url)
 
-def stable_key(item: Dict[str,Any]) -> str:
-    plat, nid = extract_native_id(item.get("url") or "")
-    return f"{plat}:{nid}"
+def stable_key(item: Dict[str, Any]) -> str:
+    plat = (item.get("platform") or "").lower()
+    pid  = (item.get("platform_id") or "").strip()
+    url  = item.get("url") or ""
+    if plat in ("kickstarter", "indiegogo") and pid:
+        return f"{plat}:{pid}"
+    plat2, nid = extract_native_id(url)
+    return f"{plat2}:{nid}"
+
 
 def load_state() -> Dict[str,Any]:
     if os.path.exists(CFG.state_file):
@@ -814,6 +841,7 @@ def apply_novelty_filter(items: List[Dict[str,Any]], state: Dict[str,Any]) -> Li
 # ==== NEW: persistence helpers ====
 PERSIST_FIELDS = [
     "title","platform","url","platform_id",
+    "ad_url","ad_platform",
     "views","backers","comments","goal","pledged",
     "published_at","duration_s","category","status",
     "campaign_dates","llm_score","score"
@@ -830,52 +858,49 @@ def _funding_ratio_value(goal, pledged):
 
 def _snapshot_item(it: dict) -> dict:
     snap = {k: it.get(k) for k in PERSIST_FIELDS}
-    snap["funding_ratio"] = _funding_ratio_value(snap.get("goal"), snap.get("pledged"))
-    # normalize numeric strings -> numbers
+    # numeric cleanup…
     for n in ("views","backers","comments"):
         v = snap.get(n)
         if isinstance(v, str):
             try: snap[n] = int(re.sub(r"[^\d]", "", v)) if v.strip() else None
             except: pass
-    for n in ("goal","pledged","llm_score","score","funding_ratio"):
+    for n in ("goal","pledged","llm_score","score"):
         v = snap.get(n)
         if isinstance(v, str):
             try: snap[n] = float(re.sub(r"[^\d\.]", "", v)) if v.strip() else None
             except: pass
+    # funding ratio (as float, same style as your example)
+    g, p = snap.get("goal"), snap.get("pledged")
+    if g not in (None, 0) and p is not None:
+        try:
+            snap["funding_ratio"] = (float(p) / float(g)) * 100.0  # percent like your example (162.63)
+        except Exception:
+            snap["funding_ratio"] = None
+    else:
+        snap["funding_ratio"] = None
+    # prefer llm_score if present
+    if snap.get("llm_score") is not None:
+        snap["score"] = float(snap["llm_score"])
     return snap
 
-def persist_discover_results(enriched_items: list[dict], top_order: list[dict], state: dict) -> None:
-    """
-    Writes full metrics for each discovered item to state["items"][key].
-    Also writes today's ordered list of keys to state["daily"][YYYY-MM-DD].
-    """
+def persist_discover_results(enriched_items: list[dict], state: dict) -> None:
+    """Merge snapshots into state['items'] only. No 'daily' key."""
     today = datetime.now(timezone.utc).date().isoformat()
     state.setdefault("items", {})
-    state.setdefault("daily", {})  # date -> [keys ordered]
 
-    # merge all items
     for it in enriched_items:
         key = stable_key(it)
         entry = state["items"].get(key, {})
         snap = _snapshot_item(it)
-        entry.update(snap)
+        # merge w/o clobbering non-empty values
+        for k, v in snap.items():
+            if v is not None:
+                entry[k] = v
+            else:
+                entry.setdefault(k, v)
         entry.setdefault("sent", False)
         entry["last_enriched"] = today
-        entry["url"] = it.get("url") or entry.get("url")
-        # best views
-        best_prev = entry.get("best_views") or 0
-        entry["best_views"] = max(best_prev, it.get("views") or 0)
-        state["items"][key] = entry
-
-    # today's order
-    top_keys = [stable_key(it) for it in top_order]
-    state["daily"][today] = top_keys
-
-    # mark last_reported for top items
-    for it in top_order:
-        key = stable_key(it)
-        entry = state["items"].get(key, {})
-        entry["last_reported"] = today
+        entry["best_views"] = max(entry.get("best_views") or 0, it.get("views") or 0)
         state["items"][key] = entry
 
     save_state(state)
@@ -1011,31 +1036,42 @@ def build_daily_report_from_state(state: dict, date_str: Optional[str] = None, t
 # =========================
 # Pipeline
 # =========================
-def discover(top_k=5):
-    # 1) Find candidates
+def discover(top_k=5, add_new_only: bool = True, update_existing: bool = False):
+    """Discover and persist; by default only adds *new* campaigns within window."""
     data = agent_discover(max_total=20)
-    items = data.get("results", [])
-    if not items:
+    raw_items = data.get("results", [])
+    if not raw_items:
         print("No candidates found."); return
 
-    # 2) Enrich & score
-    enriched = enrich_minimal_results(items)
+    enriched = enrich_minimal_results(raw_items)
     if not enriched:
         print("Candidates found, but none enriched to valid campaign ads."); return
 
+    # keep only window
+    enriched = [it for it in enriched if is_within_window(it, days=CFG.window_days)]
+    if not enriched:
+        print("No items within discovery window."); return
+
+    # score (kept; sets score=llm_score when present)
     items_scored = compute_scores(enriched)
 
-    # 3) Choose today's top
-    pool = items_scored[:]
-    pool.sort(key=lambda x: float(x.get("score") or 0.0), reverse=True)
-    top = pool[:top_k]
-
-    # 4) Persist all + today's order
     state = load_state()
-    persist_discover_results(items_scored, top, state)
 
-    # 5) Build report purely from state
-    print(build_daily_report_from_state(state, top_k=top_k))
+    # filter to *new* keys unless we want to refresh
+    if add_new_only and not update_existing:
+        items_scored = [it for it in items_scored if stable_key(it) not in state.get("items", {})]
+
+    if not items_scored:
+        print("No new items to add (all were already in state).")
+        return
+
+    # optionally cap how many we persist this run
+    items_scored.sort(key=lambda x: float(x.get("score") or 0.0), reverse=True)
+    to_persist = items_scored[:top_k]
+
+    persist_discover_results(to_persist, state)
+    print(f"Persisted {len(to_persist)} new items.")
+
 
 def send_to_telegram(token: str, chat_id: str, text: str):
     url = f"https://api.telegram.org/bot{token}/sendMessage"
