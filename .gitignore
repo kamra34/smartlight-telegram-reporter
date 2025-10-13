@@ -1,0 +1,5 @@
+.venv/
+.env
+secrets.json
+*.key
+*.pem
