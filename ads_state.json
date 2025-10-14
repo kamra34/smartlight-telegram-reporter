@@ -494,6 +494,87 @@
       "sent": false,
       "last_enriched": "2025-10-13",
       "best_views": 0
+    },
+    "kickstarter:talkipal/talkipal-ai-powered-interactive-plush-toy-for-children": {
+      "title": "Talkipal: AI-powered interactive plush toy for children by Talkipal ...",
+      "platform": "kickstarter",
+      "url": "https://www.kickstarter.com/projects/talkipal/talkipal-ai-powered-interactive-plush-toy-for-children",
+      "platform_id": "talkipal/talkipal-ai-powered-interactive-plush-toy-for-children",
+      "ad_url": null,
+      "ad_platform": null,
+      "views": null,
+      "backers": null,
+      "comments": null,
+      "goal": null,
+      "pledged": null,
+      "published_at": null,
+      "duration_s": null,
+      "category": null,
+      "status": null,
+      "campaign_dates": {
+        "launched": null,
+        "ended": null
+      },
+      "llm_score": null,
+      "score": 0.5,
+      "funding_ratio": null,
+      "sent": false,
+      "last_enriched": "2025-10-14",
+      "best_views": 0
+    },
+    "kickstarter:ubopod/ubo-pod-hackable-personal-ai-assistant": {
+      "title": "Ubo Pod: Your Personal AI Assistant - Developer Edition by Ubo ...",
+      "platform": "kickstarter",
+      "url": "https://www.kickstarter.com/projects/ubopod/ubo-pod-hackable-personal-ai-assistant",
+      "platform_id": "ubopod/ubo-pod-hackable-personal-ai-assistant",
+      "ad_url": null,
+      "ad_platform": null,
+      "views": null,
+      "backers": null,
+      "comments": null,
+      "goal": null,
+      "pledged": null,
+      "published_at": null,
+      "duration_s": null,
+      "category": null,
+      "status": null,
+      "campaign_dates": {
+        "launched": null,
+        "ended": null
+      },
+      "llm_score": null,
+      "score": 0.5,
+      "funding_ratio": null,
+      "sent": false,
+      "last_enriched": "2025-10-14",
+      "best_views": 0
+    },
+    "kickstarter:6181520/krayzor-dual-screen-gaming-laptop-with-high-refresh-rate": {
+      "title": "Krayzor: Dual-Screen Beast – Game & Design Domination by ...",
+      "platform": "kickstarter",
+      "url": "https://www.kickstarter.com/projects/6181520/krayzor-dual-screen-gaming-laptop-with-high-refresh-rate",
+      "platform_id": "6181520/krayzor-dual-screen-gaming-laptop-with-high-refresh-rate",
+      "ad_url": null,
+      "ad_platform": null,
+      "views": null,
+      "backers": null,
+      "comments": null,
+      "goal": null,
+      "pledged": null,
+      "published_at": null,
+      "duration_s": null,
+      "category": null,
+      "status": null,
+      "campaign_dates": {
+        "launched": null,
+        "ended": null
+      },
+      "llm_score": null,
+      "score": 0.5,
+      "funding_ratio": null,
+      "sent": false,
+      "last_enriched": "2025-10-14",
+      "best_views": 0
     }
   }
 }
