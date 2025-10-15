@@ -52,7 +52,7 @@
       "llm_score": null,
       "score": 0.5,
       "funding_ratio": 1.214,
-      "sent": false,
+      "sent": true,
       "last_enriched": "2025-10-15",
       "best_views": 0
     },
@@ -80,7 +80,7 @@
       "llm_score": null,
       "score": 0.6732,
       "funding_ratio": 2539.499,
-      "sent": false,
+      "sent": true,
       "last_enriched": "2025-10-15",
       "best_views": 0
     },
@@ -108,7 +108,7 @@
       "llm_score": null,
       "score": 0.525,
       "funding_ratio": null,
-      "sent": false,
+      "sent": true,
       "last_enriched": "2025-10-15",
       "best_views": 0
     },
@@ -136,7 +136,7 @@
       "llm_score": null,
       "score": 0.5,
       "funding_ratio": null,
-      "sent": false,
+      "sent": true,
       "last_enriched": "2025-10-15",
       "best_views": 0
     },
@@ -164,7 +164,7 @@
       "llm_score": null,
       "score": 0.5,
       "funding_ratio": null,
-      "sent": false,
+      "sent": true,
       "last_enriched": "2025-10-15",
       "best_views": 0
     },
