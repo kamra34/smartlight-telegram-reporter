@@ -303,10 +303,7 @@ def notify():
         )
 
         try:
-            # send_to_telegram(token, chat, text)
-            print(f"token: {token}")
-            print(f"CHAT: {chat}")
-            print(f"text: {text}")
+            send_to_telegram(token, chat, text)
             entry["sent"] = True
             state["items"][key] = entry
             sent_any = True
