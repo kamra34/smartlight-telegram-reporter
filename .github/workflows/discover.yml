@@ -25,10 +25,23 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
-      - name: Install deps
+      - name: Install deps (pip)
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+      # Optional but recommended: cache Playwright browsers
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-browsers-${{ runner.os }}-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            playwright-browsers-${{ runner.os }}-
+
+      - name: Install Playwright Chromium (with system deps)
+        run: |
+          python -m playwright install --with-deps chromium
 
       - name: Run discover
         env:
@@ -38,6 +51,8 @@ jobs:
           TZ: Europe/Stockholm
           NOTIFY_MIN: '3'
           NOTIFY_MAX: '5'
+          USE_LLM: ${{ secrets.USE_LLM }}
+          GADGET_LLM_FALLBACK: ${{ secrets.GADGET_LLM_FALLBACK }}
         run: |
           python ads_tracker.py discover --top 3
 
