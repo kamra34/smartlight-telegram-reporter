@@ -317,7 +317,7 @@ def is_gadget_candidate(item: Dict[str,Any]) -> bool:
 
     llm_decision = llm_is_gadget(title, cat, item.get("url") or "")
     if llm_decision is not None:
-        print(f"LLM Decides Gadget for {item.get("url")}: {llm_decision}")
+        print(f"LLM Decides Gadget for {item.get('url')}: {llm_decision}")
         return llm_decision
 
     cat_decision = is_gadget_by_category(plat, cat)
