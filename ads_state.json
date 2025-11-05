@@ -1679,6 +1679,34 @@
       "sent": true,
       "last_enriched": "2025-11-04",
       "best_views": 0
+    },
+    "indiegogo:en/projects/lukebly-24479178/the-ground-division--2/yourpledge": {
+      "title": "The Ground Division by Luke Bly - Your pledge - Indiegogo",
+      "platform": "indiegogo",
+      "url": "https://www.indiegogo.com/en/projects/lukebly-24479178/the-ground-division--2/yourpledge",
+      "platform_id": null,
+      "ad_url": null,
+      "ad_platform": null,
+      "views": null,
+      "backers": null,
+      "comments": null,
+      "goal": null,
+      "pledged": null,
+      "pledged_raw": null,
+      "goal_raw": null,
+      "pledged_currency": "$",
+      "goal_currency": "$",
+      "published_at": null,
+      "duration_s": null,
+      "category": null,
+      "status": null,
+      "campaign_dates": null,
+      "llm_score": null,
+      "score": 0.5,
+      "funding_ratio": null,
+      "sent": false,
+      "last_enriched": "2025-11-05",
+      "best_views": 0
     }
   }
 }
