@@ -1847,6 +1847,34 @@
       "sent": true,
       "last_enriched": "2025-11-07",
       "best_views": 0
+    },
+    "kickstarter:projects/decokee/decokee-magnetic-ssd-enclosure-hub-your-4-in-1-desk-solution": {
+      "title": "DECOKEE Magnetic SSD Enclosure+Hub:Your 4-in-1 Desk Solution ...",
+      "platform": "kickstarter",
+      "url": "https://www.kickstarter.com/projects/decokee/decokee-magnetic-ssd-enclosure-hub-your-4-in-1-desk-solution",
+      "platform_id": null,
+      "ad_url": null,
+      "ad_platform": null,
+      "views": null,
+      "backers": null,
+      "comments": null,
+      "goal": null,
+      "pledged": null,
+      "pledged_raw": null,
+      "goal_raw": null,
+      "pledged_currency": null,
+      "goal_currency": null,
+      "published_at": null,
+      "duration_s": null,
+      "category": null,
+      "status": null,
+      "campaign_dates": null,
+      "llm_score": null,
+      "score": 0.5,
+      "funding_ratio": null,
+      "sent": false,
+      "last_enriched": "2025-11-08",
+      "best_views": 0
     }
   }
 }
