@@ -2292,7 +2292,7 @@
       "llm_score": null,
       "score": 0.5,
       "funding_ratio": null,
-      "sent": false,
+      "sent": true,
       "last_enriched": "2025-11-14",
       "best_views": 0
     },
@@ -2320,7 +2320,7 @@
       "llm_score": null,
       "score": 0.5,
       "funding_ratio": null,
-      "sent": false,
+      "sent": true,
       "last_enriched": "2025-11-14",
       "best_views": 0
     },
@@ -2348,7 +2348,7 @@
       "llm_score": null,
       "score": 0.5,
       "funding_ratio": null,
-      "sent": false,
+      "sent": true,
       "last_enriched": "2025-11-14",
       "best_views": 0
     }
